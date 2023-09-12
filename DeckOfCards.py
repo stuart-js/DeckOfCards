@@ -1,4 +1,7 @@
 # Creating a deck of cards to practice classes and object oriented programming
+# Practice using doubly linked lists - THIS might be the wrong choice of data structure to use
+# Algorithm for this will be more diffcult than using indices and arrays. Especially when alternating for 
+# a riffle shuffle.
 
 class CardDeck():
 
@@ -6,16 +9,45 @@ class CardDeck():
         #self.cards = # list of cards in deck
         #self.topCard = #TODO - complete top and bottom cards
         #self.bottomCard = 
-        pass
+        self.deck = []
 
-    def buildDeck(self):
+    def build_deck(self):
         # Iterate through each suit
         # Link each card with and previous
-        
-        self.topCard = Card("Ace", "Clubs", False)
-        self.bottomCard = Card("King", "Spades", True)
-
+        define_ace_value = input("Ace High or Low? H or L?").strip()
     
+        suits = ["C", "H", "D", "S"]
+        facecards = ["J","Q","K"]
+
+        for suit in suits:
+            if define_ace_value == "L":
+                self.deck.append(Card("A", suit, False))
+            for num in range(2,11):
+                self.deck.append(Card(num, suit, False))
+            for facecard in facecards:
+                self.deck.append(Card(facecard, suit, True))
+            if define_ace_value == "H":
+                self.deck.append(Card("A", suit, False))
+
+
+
+        
+        
+        #self.topCard = Card("Ace", "Clubs", False)
+        #self.bottomCard = Card("King", "Spades", True)
+
+    def split_deck(self):
+        # Split the deck in half
+        pass
+    
+    def riffle_shuffle(self):
+        # Deck is split in half, each card is fanned into the other side.
+        # This might be very difficult to implement using linked lists. 
+        # Array and indices may be a better data structure
+        # Could place each object into a list of objects rather than using a linked list!
+
+        pass
+
 
 class Card():
     # should each card be an object?
@@ -31,8 +63,8 @@ class Card():
 
     def __str__(self):
         
-        string = ( str(self.value) + " of " + self.suit +
-                "\nFaceCard: " + str(self.face)
+        string = ( str(self.value) + self.suit +
+                "\tFaceCard: " + str(self.face)
                 )
 
 
@@ -57,7 +89,7 @@ def main():
     
     eight_hearts = Card(8, "Hearts", False)
     
-    print(eight_hearts) # This just prints object, need actual values
+    #print(eight_hearts) # This just prints object, need actual values
                         # Need to use __str__ method to return what you want to print of class
 
     # How will I create a whole deck of 52 cards?
@@ -67,8 +99,12 @@ def main():
     #print(str(eight_hearts.isCard))
 
     deck = CardDeck()
-    deck.buildDeck()
+    deck.build_deck()
     
+    for i in range(0,52):
+        print(deck.deck[i])
+
+    """
     #TESTS
     # Test topCard
     if str(deck.topCard) == "Ace of Clubs\nFaceCard: False":
@@ -81,6 +117,7 @@ def main():
         print("Passed")
     else:
         print("Failed")
+    """
 
 if __name__ == "__main__":
     main()
